@@ -1,0 +1,1 @@
+mongo "mongodb+srv://bokwangdb-5mq6r.mongodb.net/test" --username keaton
