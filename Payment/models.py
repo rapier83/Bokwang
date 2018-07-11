@@ -29,7 +29,7 @@ OrderRequestStorage = FileSystemStorage()
 class Peer(models.Model):
     PDFFileName          = models.CharField(max_length=20, unique=True)
     StoreFile: FileField = models.FileField(
-        upload_to='OrderRequestStorage',
+        upload_to='Payment/OrderRequestStorage',
         storage=OrderRequestStorage,
         blank=True, null=True
     )

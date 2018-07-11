@@ -16,12 +16,12 @@ if __name__ == "__main__":
         ) from exc
     execute_from_command_line(sys.argv)
 
-# Mark : - Setting Payment PDF directory
+# Mark : - Setting payment PDF directory
 
 FILE_UPLOAD_HANDLERS = (
     "django.core.files.uploadhandler.MemoryFileUploadHandler",
     "django.core.files.uploadhandler.TemporaryFileUploadHandler",
 )
-PROJECT_DIR = Path(__file__).ancestor(3)  # settings.py in settings dir
-MEDIA_DIR = (PROJECT_DIR.child("Payment/OrderedRequestStorage"))
-MEDIA_URL = "/Payment/OrderedRequestStorage"
+# PROJECT_DIR = Path(__file__).ancestor(3)  # settings.py in settings dir
+# MEDIA_DIR = (PROJECT_DIR.child("paymentrderedRequestStorage"))
+# MEDIA_URL = "payment\\OrderedRequestStorage"

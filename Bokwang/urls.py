@@ -14,12 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.conf.urls import url, include
 from django.urls import path
-from Payment import views
+# from django.conf.urls import url
+# from django.conf.urls import include
+# from Payment import views as payview
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^$', views.index),
-    url(r'^payment/', views.paymentMain('main.html')),
+#    url(r'pay/', payview.paymentMain())
 ]
