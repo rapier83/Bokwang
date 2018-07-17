@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="72c60351-3d88-437c-8b62-fb5a3a7cefdd" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/Bokwang/templates/payment/Acceptance.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Bokwang.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Bokwang.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Payment/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Payment/models.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -218,6 +214,14 @@
       <option name="presentableId" value="Default" />
       <updated>1531197371649</updated>
     </task>
+    <task id="LOCAL-00001" summary="templates modified">
+      <created>1531751795899</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1531751795899</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -231,7 +235,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1775" y="47" width="1400" height="1000" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2724595" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32946634" />
@@ -277,6 +280,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="templates modified" />
+    <option name="LAST_COMMIT_MESSAGE" value="templates modified" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Payment/views.py">
