@@ -1,37 +1,37 @@
 from django.db import models
-from django.db.models import DateTimeField, FileField
-from django.utils import timezone
+from django.db.models import EmailField, CharField, DateField, BooleanField
 from django.core.files.storage import FileSystemStorage
+import django.utils
 
-OrderRequestStorage = FileSystemStorage()
+RequestStorage = FileSystemStorage()
+StorageLocation = '/Payment/Storage/Orders'
 
+# Scenario
+# 1. check email
+# 2. check header?
+
+
+# Mark : - 1. Orders
 
 class Order(models.Model):
-    ReceiverEmail      = models.CharField(max_length=200)
-    OrderCompany       = models.CharField(max_length=200)
-    ThePaper           = models.FileField(
-        upload_to='Order Request',
-        storage=OrderRequestStorage,
-        blank=False, null=False,
-    )
-    DeliveredDate  : DateTimeField = models.DateTimeField(default=timezone.now)
-    Confirmed_date: DateTimeField = models.DateTimeField(blank=True, null=True)
+    SenderEmail   : EmailField = models.EmailField()
+    OrderedCompany: CharField = models.CharField(max_length=50)
+    ThePaper      : CharField = models.FileField(upload_to='Order Request', storage=RequestStorage,
+                                                blank=False, null=False)
+    DeliveredDate : DateField    = models.DateField(null=False)
+    Confirmed_date: DateField    = models.DateField(null=False)
+    LastUpload    : DateField    = models.DateField(default=django.utils.timezone.now, blank=True, null=False)
+    isStored      : BooleanField = models.BooleanField(default=False, null=False)
 
-    def Confirm(self):
-        self.published_date = timezone.now()
-        self.save()
+    def SetLocation(self):
+        self.FollowLocation = self.DeliveredDate.clone()
 
     def __str__(self):
         return self.title
 
+    def __init__(self):
+        pass
 
-# Mark: - Set Order PDF file storage
 
+# Mark : - 2. Products
 
-class Papers(models.Model):
-    PDFFileName          = models.CharField(max_length=20, unique=True)
-    StoreFile: FileField = models.FileField(
-        upload_to='Payment/OrderRequestStorage',
-        storage=OrderRequestStorage,
-        blank=True, null=True
-    )
