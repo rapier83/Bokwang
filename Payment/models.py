@@ -12,7 +12,8 @@ class Order(models.Model):
     ThePaper           = models.FileField(
         upload_to='Order Request',
         storage=OrderRequestStorage,
-        blank=False, null=False, )
+        blank=False, null=False,
+    )
     DeliveredDate  : DateTimeField = models.DateTimeField(default=timezone.now)
     Confirmed_date: DateTimeField = models.DateTimeField(blank=True, null=True)
 
