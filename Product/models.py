@@ -1,23 +1,27 @@
+from typing import List, Any, Union
+
 from django.db import models
 from django.db.models import EmailField, CharField, IntegerField, FloatField, BooleanField, UUIDField
 
 # Create your models here.
 
 class ProductName:
-    ProductNumber = [2744, 2704, 2912, 2798, 982, 1150]
+    ProductNumber = [(1, 2744), (2, 2704), (3, 2912), (4, 2798), (5, 982), (6, 1150)]
     Prefix = "RFL-"
-    Surfix = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+    Suffix: List[Union[str, Any]] = [("A", "A"), ("B", "B"), ("C", "C"), ("D", "D"), ("E", "E"),
+                                     ("F", "F"), ("G", "G"), ("H", "H"), ("I", "I"), ("J", "J"),
+                                     ("K", "K"), ("L", "L"),]
 
 
 class Product(models.Model):
     ProductID: UUIDField    = models.UUIDField(primary_key=True, editable=False)
-    Name     : IntegerField = models.CharField(max_length=5, choices=ProductName.ProductNumber)
-    Prefix   : BooleanField = models.BooleanField(null=True)
-    Surfix   : CharField    = models.CharField(max_length=2, choices=ProductName.Surfix)
+    Name     : IntegerField = models.IntegerField(choices=ProductName.ProductNumber)
+    Prefix   : BooleanField = models.BooleanField(null=False)
+    Suffix   : IntegerField = models.IntegerField(choices=ProductName.Suffix)
 
     class Specs:
-        Unit = "Inches"
-        NumberOfFins = models.IntegerField(32)
+        def __str__(self):
+            """Specs of Manifold"""
 
         class Manifold:
             class WaterHole:
@@ -26,18 +30,25 @@ class Product(models.Model):
                 FromLeft   = models.FloatField()
                 FromRight  = models.FloatField()
                 HoleRadius = models.FloatField()
-            def __str__(self):
-                """Specs of Manifold"""
 
         class Fin:
-
             def __str__(self):
                 """Specs of Fins"""
 
-        class Rug:
+            Size      = models.FloatField(null=False)
+            Thickness = models.FloatField(null=False)
+            Height    = models.FloatField(null=False)
 
+            def SyncSpec(selfs):
+                self.Width = self.Size
+                self.Depth = self.Thickness
+
+        class Rug:
             def __str__(self):
                 """Specs for Rug"""
+
+        Unit = "Inches"
+        NumberOfFins: IntegerField = models.IntegerField(32)
 
 
 

@@ -29,3 +29,7 @@ Finshields = [{
 			 "Thickness": 0.140},
 
 }]
+
+// Doubled! work!! MongoDB modeling and Django modeling!
+// It's not boring but little bit bitter. Did I work twice?
+// P.S Actually Including Workbench ERD, it's triple work~ jahahah
