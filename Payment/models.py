@@ -18,9 +18,6 @@ class Order(models.Model):
          So, thar need to be archived, and don't make miss. Specially, Like missing order, late check make a catastrophic
          accident"""
 
-    def __init__(self):
-        self.SaveLocation = None
-
     class Paper:
         # Model Entries(Product).
         # Recommend write the Optional.
@@ -32,6 +29,8 @@ class Order(models.Model):
         ## 5. Alert User input manually
         ## 6. Check another user, notice by e-mail or MMS
 
+
+        SaveLocation = None
         SenderEmail: EmailField = models.EmailField()
         OrderedCompany: CharField = models.CharField(max_length=50)
         ThePaper: CharField = models.FileField(upload_to='Order Request', storage=RequestStorage,
@@ -45,9 +44,8 @@ class Order(models.Model):
             self.SaveLocation = StorageLocation + '/' + self.DeliveredDate.clone()
 
         def DateCheck(self, t):
-            def isFirst(self, b):
+            def isFirst(b):
                 self.ReadFirst = (t, b)
-                return self.ReceivedDate
-
+                return self.ReadFirst
             return isFirst(True)
 
