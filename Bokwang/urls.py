@@ -21,4 +21,5 @@ from Payment.views import PayMain
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Payment/', PayMain),
+    path('payment/', PayMain),
 ]
