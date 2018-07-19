@@ -32,6 +32,14 @@ class Order(models.Model):
         ## 5. Alert User input manually
         ## 6. Check another user, notice by e-mail or MMS
 
+        SenderEmail: EmailField = models.EmailField()
+        OrderedCompany: CharField = models.CharField(max_length=50)
+        ThePaper: CharField = models.FileField(upload_to='Order Request', storage=RequestStorage,
+                                               blank=False, null=False)
+        DeliveredDate: DateField = models.DateField(null=False)
+        Confirmed_date: DateField = models.DateField(null=False)
+        LastUpload: DateField = models.DateField(default=django.utils.timezone.now, blank=True, null=False)
+        isStored: BooleanField = models.BooleanField(default=False, null=False)
 
         def SetLocation(self):
             self.SaveLocation = StorageLocation + '/' + self.DeliveredDate.clone()
@@ -42,15 +50,4 @@ class Order(models.Model):
                 return self.ReceivedDate
 
             return isFirst(True)
-
-
-        SenderEmail: EmailField = models.EmailField()
-        OrderedCompany: CharField = models.CharField(max_length=50)
-        ThePaper: CharField = models.FileField(upload_to='Order Request', storage=RequestStorage,
-                                               blank=False, null=False)
-        DeliveredDate: DateField = models.DateField(null=False)
-        Confirmed_date: DateField = models.DateField(null=False)
-        LastUpload: DateField = models.DateField(default=django.utils.timezone.now, blank=True, null=False)
-        isStored: BooleanField = models.BooleanField(default=False, null=False)
-
 
