@@ -15,40 +15,40 @@ class ProductName:
 
 class Product(models.Model):
     ProductID: UUIDField    = models.UUIDField(primary_key=True, editable=False)
-    Name     : IntegerField = models.IntegerField(choices=ProductName.ProductNumber)
+    Number   : IntegerField = models.IntegerField(choices=ProductName.ProductNumber)
     Prefix   : BooleanField = models.BooleanField(null=False)
     Suffix   : IntegerField = models.IntegerField(choices=ProductName.Suffix)
 
-    class Specs:
+    class Manifold:
         def __str__(self):
             """Specs of Manifold"""
 
-        class Manifold:
-            class WaterHole:
-                # From Top, From Left, From Right, Radius
-                FromTop    = models.FloatField()
-                FromLeft   = models.FloatField()
-                FromRight  = models.FloatField()
-                HoleRadius = models.FloatField()
+        class WaterHole:
 
-        class Fin:
-            def __str__(self):
-                """Specs of Fins"""
+            # From Top, From Left, From Right, Radius
+            FromTop    = models.FloatField()
+            FromLeft   = models.FloatField()
+            FromRight  = models.FloatField()
+            HoleRadius = models.FloatField()
 
-            Size      = models.FloatField(null=False)
-            Thickness = models.FloatField(null=False)
-            Height    = models.FloatField(null=False)
+    class Fin:
+        def __str__(self):
+            """Specs of Fins"""
 
-            def SyncSpec(selfs):
-                self.Width = self.Size
-                self.Depth = self.Thickness
+        Size      = models.FloatField(null=False)
+        Thickness = models.FloatField(null=False)
+        Height    = models.FloatField(null=False)
 
-        class Rug:
-            def __str__(self):
-                """Specs for Rug"""
+        def SyncSpec(selfs):
+            self.Width = self.Size
+            self.Depth = self.Thickness
 
-        Unit = "Inches"
-        NumberOfFins: IntegerField = models.IntegerField(32)
+    class Rug:
+        def __str__(self):
+            """Specs for Rug"""
+
+    Unit = "Inches"
+    NumberOfFins: IntegerField = models.IntegerField(32)
 
 
 
