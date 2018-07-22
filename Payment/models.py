@@ -6,11 +6,10 @@ from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
 
 RequestStorage = FileSystemStorage()
-StorageLocation = '/Payment/Storage/Orders'
+StorageLocation = 'Payment/Storage/Orders'
 
 
 # Mark : - 1. Orders
-
 
 class Order(models.Model):
     # Model Entries(Product).
@@ -25,28 +24,31 @@ class Order(models.Model):
 
     def __str__(self):
         """Orders are two kinds. First is Purchase order, it's from Our client-Plant Kimcheon, OC Korea- or oversee.
-         So, thar need to be archived, and don't make miss. Specially, Like missing order, late check make a catastrophic
-         accident"""
+        So, thar need to be archived, and don't make miss. Specially, Like missing order, late check make a catastrophic
+        accident"""
+
+        return f'{self.Goods} {self.DeliveredDate} by f{self.DueDate}'
 
     SaveLocation = None
     SenderEmail   : EmailField = models.EmailField()
     OrderedCompany: CharField = models.CharField(max_length=50)
-    ThePaper      :  CharField = models.FileField(upload_to='Papers', storage=RequestStorage)
-    DeliveredDate : DateField = models.DateField()
-    ConfirmedDate : DateField = models.DateField()
-    LastUpload    : DateField = models.DateField()
+    ThePaper      : CharField = models.FileField(upload_to=StorageLocation, storage=RequestStorage)
+    DeliveredDate : DateField = models.DateField(null=True)
+    LastQueryTime : DateField = models.DateField(default=timezone.now())
+    ConfirmedDate : DateField = models.DateField(null=True, default=None)
+    UploadDate    : DateField = models.DateField(null=True)
     isStored      : BooleanField = models.BooleanField(default=False, null=False)
+    DueDate       : DateField = models.DateField(null=True)
 
-    def SetLocation(self):
-        self.SaveLocation = StorageLocation + '/' + self.DeliveredDate.clone()
+    Goods = models.ForeignKey('Product.Product', on_delete=models.CASCADE,)
 
-    def DateCheck(self, t):
-        def isFirst(b):
-            self.ReadFirst = (t, b)
-            return self.ReadFirst
-        return isFirst(True)
 
-    class Content:
-        ProductNumber = models.CharField(max_length=5)
-        ProductSuffix = models.CharField(max_length=1)
-        ForExport     = models.BooleanField()
+# Mark: - 2. Manager
+
+class OrderManage(models.Manager):
+
+    def isDateExist(self):
+        if Order.DeliveredDate:
+            return True
+        else:
+            return False

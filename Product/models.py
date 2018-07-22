@@ -3,8 +3,8 @@ from typing import List, Any, Union
 from django.db import models
 from django.db.models import EmailField, CharField, IntegerField, FloatField, BooleanField, UUIDField
 
-# Create your models here.
 
+# Create your models here.
 class ProductName:
     ProductNumber = [(1, 2744), (2, 2704), (3, 2912), (4, 2798), (5, 982), (6, 1150)]
     Prefix = "RFL-"
@@ -14,22 +14,21 @@ class ProductName:
 
 
 class Product(models.Model):
-    ProductID: UUIDField    = models.UUIDField(primary_key=True, editable=False)
     Number   : IntegerField = models.IntegerField(choices=ProductName.ProductNumber)
-    Prefix   : BooleanField = models.BooleanField(null=False)
+    Prefix   : BooleanField = models.BooleanField(default=False)
     Suffix   : IntegerField = models.IntegerField(choices=ProductName.Suffix)
+    ProductID: CharField    = models.CharField(max_length=254)
 
     class Manifold:
         def __str__(self):
             """Specs of Manifold"""
 
         class WaterHole:
-
             # From Top, From Left, From Right, Radius
-            FromTop    = models.FloatField()
-            FromLeft   = models.FloatField()
-            FromRight  = models.FloatField()
-            HoleRadius = models.FloatField()
+            FromTop     = models.FloatField()
+            LeftCenter  = models.FloatField()
+            RightCenter = models.FloatField()
+            HoleRadius  = models.FloatField()
 
     class Fin:
         def __str__(self):
@@ -39,10 +38,6 @@ class Product(models.Model):
         Thickness = models.FloatField(null=False)
         Height    = models.FloatField(null=False)
 
-        def SyncSpec(selfs):
-            self.Width = self.Size
-            self.Depth = self.Thickness
-
     class Rug:
         def __str__(self):
             """Specs for Rug"""
@@ -50,6 +45,10 @@ class Product(models.Model):
     Unit = "Inches"
     NumberOfFins: IntegerField = models.IntegerField(32)
 
+
+def SyncSpec(self):
+    self.Width = self.Size
+    self.Depth = self.Thickness
 
 
 
