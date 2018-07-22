@@ -1,25 +1,16 @@
-{% extends "base_Payment.html" %}
+{% extends 'Payment/base.html' %}
 
 {% block content %}
-<head>
-    <title>발주받은내용입력(수주)</title>
-    <meta name="description"
-          content="Goal: input order from PDF file
-          1. select PDF file
-          2. If app can't read PDF then
-          3. input manually
-          4. In case manual, re-send e-mail to sender, to check it is correct.">
-</head>
-<body>
-    <div>
-        insert PDF file
-
+    <h2>발주서 목록</h2>
+    <div class="post">
+    {% if PaperList %}
+        <ul>
+            {% for P in PaperList %}
+                <li><a href="/Payment/{{ P.id }}/">{{ P.TitleByDate }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>등록한 발주서가 없습니다</p>
+    {% endif %}
     </div>
-
-
-
-    <div>
-        or manually input order
-    </div>
-</body>
-{% endblock content %}
+{% endblock %}

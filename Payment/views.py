@@ -10,3 +10,12 @@ def PayMain(request: object) -> object:
 
 def Base(request):
     return HttpResponse("Hello, world. You're at the **Payment** index.")
+
+
+def YearArchive(request, year):
+    ListByYear = 0000
+    return HttpResponse("<h2> years </h2>")
+
+
+def ViewPapar(request):
+    return HttpResponse("<h2> the paper </h2>")
