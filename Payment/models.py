@@ -1,4 +1,3 @@
-from datetime import datetime
 
 from django.db import models
 from django.db.models import EmailField, CharField, DateField, BooleanField
@@ -47,7 +46,8 @@ class Order(models.Model):
 
 class OrderManage(models.Manager):
 
-    def isDateExist(self):
+    @staticmethod
+    def isDateExist() -> bool:
         if Order.DeliveredDate:
             return True
         else:
