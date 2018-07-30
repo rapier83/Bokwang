@@ -21,25 +21,29 @@ class Order(models.Model):
     ## 5. Alert User input manually
     ## 6. Check another user, notice by e-mail or MMS
 
-    def __str__(self):
-        """Orders are two kinds. First is Purchase order, it's from Our client-Plant Kimcheon, OC Korea- or oversee.
-        So, thar need to be archived, and don't make miss. Specially, Like missing order, late check make a catastrophic
-        accident"""
-
-        return f'{self.Goods} {self.DeliveredDate} by f{self.DueDate}'
-
     SaveLocation = None
     SenderEmail   : EmailField = models.EmailField()
     OrderedCompany: CharField = models.CharField(max_length=50)
     ThePaper      : CharField = models.FileField(upload_to=StorageLocation, storage=RequestStorage)
     DeliveredDate : DateField = models.DateField(null=True)
-    LastQueryTime : DateField = models.DateField(default=timezone.now())
+    LastQueryTime : DateField = models.DateField(blank=True, null=True)
     ConfirmedDate : DateField = models.DateField(null=True, default=None)
     UploadDate    : DateField = models.DateField(null=True)
     isStored      : BooleanField = models.BooleanField(default=False, null=False)
     DueDate       : DateField = models.DateField(null=True)
 
     Goods = models.ForeignKey('Product.Product', on_delete=models.CASCADE,)
+
+    def publish(self):
+        self.LastQueryTime = timezone.now()
+        self.save()
+
+    def __str__(self):
+        """Orders are two kinds. First is Purchase order, it's from Our client-Plant Kimcheon, OC Korea- or oversee.
+        So, thar need to be archived, and don't make miss. Specially, Like missing order, late check make a catastrophic
+        accident"""
+
+        return f'{self.Goods} {self.DeliveredDate} by f{self.DueDate}'
 
 
 # Mark: - 2. Manager

@@ -1,6 +1,5 @@
-{% extends 'Payment/base.html' %}
+{% extends "base.html" %}
 
-{% block content %}
     <h2>발주서 목록</h2>
     <div class="post">
     {% if PaperList %}
@@ -13,4 +12,3 @@
         <p>등록한 발주서가 없습니다</p>
     {% endif %}
     </div>
-{% endblock %}

@@ -1,10 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+P = []
 
 def PayMain(request: object) -> object:
     # request must be given, even it doesn't use
-    return render(request, 'Payment/base.html', {})
+    return render(request, 'base.html', {'PaperList': None})
     # return HttpResponse('<html><body>This is pay. main.</body></html>')
 
 
