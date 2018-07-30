@@ -1,7 +1,7 @@
 from typing import List, Any, Union
 
 from django.db import models
-from django.db.models import EmailField, CharField, IntegerField, FloatField, BooleanField, UUIDField
+from django.db.models import IntegerField, BooleanField, UUIDField
 
 
 # Create your models here.
@@ -17,7 +17,7 @@ class Product(models.Model):
     Number   : IntegerField = models.IntegerField(choices=ProductName.ProductNumber)
     Prefix   : BooleanField = models.BooleanField(default=False)
     Suffix   : IntegerField = models.IntegerField(choices=ProductName.Suffix)
-    ProductID: CharField    = models.CharField(max_length=254)
+    ProductID: UUIDField    = models.UUIDField(max_length=20)
 
     class Manifold:
         def __str__(self):
