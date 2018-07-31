@@ -25,10 +25,10 @@ class Order(models.Model):
     SenderEmail   : EmailField = models.EmailField()
     OrderedCompany: CharField = models.CharField(max_length=50)
     ThePaper      : CharField = models.FileField(upload_to=StorageLocation, storage=RequestStorage)
-    DeliveredDate : DateField = models.DateField(null=True)
-    LastQueryTime : DateField = models.DateField(blank=True, null=True)
+    DeliveredDate : DateField = models.DateField(null=True, default=None)
+    LastQueryTime : DateField = models.DateField(null=True, default=None)
     ConfirmedDate : DateField = models.DateField(null=True, default=None)
-    UploadDate    : DateField = models.DateField(null=True)
+    UploadDate    : DateField = models.DateField(null=True, default=None)
     isStored      : BooleanField = models.BooleanField(default=False, null=False)
     DueDate       : DateField = models.DateField(null=True)
 
