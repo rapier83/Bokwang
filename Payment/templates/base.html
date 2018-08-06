@@ -2,7 +2,7 @@
 {% load static %}
 <html>
 <head>
-    <title>발주서목록(Orders)</title>
+    <title>발주서업무(Orders)</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
@@ -11,11 +11,20 @@
 </head>
 <body>
     <div>
+        <button>
+           발주서 조회
+        </button>
+        <button>
+           발주서 등록
+        </button>
+        <button>
+
+        </button>
 
     </div>
 
     {% block content %}
-        {% include "insert.html" %}
+        {% include "insert_list.html" %}
     {% endblock %}
 
 </body>
