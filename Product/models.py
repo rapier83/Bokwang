@@ -1,51 +1,78 @@
-from typing import List, Any, Union
-
 from django.db import models
-from django.db.models import IntegerField, BooleanField, ForeignKey, CharField
+# from django.db.models import IntegerField, BooleanField,\
+#                             CharField, FloatField, \
+#                             DecimalField
 
 
-class ProductName:
-    ProductNumber = [(1, 2744), (2, 2704), (3, 2912), (4, 2798), (5, 982), (6, 1150)]
+class Properties:
+    ProductNumber = [(2744, 2744), (2704, 2704), (2912, 2912), (2798, 2798), (982, 982), (1150, 1150)]
     Prefix = "RFL-"
-    Suffix: List[Union[str, Any]] = [("A", "A"), ("B", "B"), ("C", "C"), ("D", "D"), ("E", "E"),
-                                     ("F", "F"), ("G", "G"), ("H", "H"), ("I", "I"), ("J", "J"),
-                                     ("K", "K"), ("L", "L"), ]
-    Unit = "Inches"
+    Suffix = [("A", "A"), ("B", "B"), ("C", "C"), ("D", "D"), ("E", "E"),
+              ("F", "F"), ("G", "G"), ("H", "H"), ("I", "I"), ("J", "J"),
+              ("K", "K"), ("L", "L"), ]
+    Unit   = [("Inches", "Inches"), ("Degree", "Degree"), ("Metric", "Metric"), ("Kg", "kilogram"), ("lbs.", "Pounds")]
+
+# Features
+
+class Size(models.Model):
+    Unit      = models.IntegerField(choices=Properties.Unit)
+    Length    = models.FloatField(null=True, help_text="Size")
+    Broad     = models.FloatField(null=True, help_text="Width")
+    Thickness = models.FloatField(null=True, help_text="Depth")
 
 
-class Specs(models.Model):
-    Size      = models.FloatField(null=True)
-    Thickness = models.FloatField(null=True)
-    Height    = models.FloatField(null=True)
-
-    class Meta:
-        abstract = True
+class Weight(models.Model):
+    Unit      = models.IntegerField(choices=Properties.Unit, default=4)
+    Val       = models.FloatField(null=True)
 
 
-class Fins(Specs):
-    FinType: CharField = models.CharField(max_length=10, null=True)
+class Position(models.Model):
+    Unit      = models.IntegerField(choices=Properties.Unit)
+    CENTERED  = models.BooleanField(null=True, default=True)
+    FROMTOP   = models.FloatField(null=True)
+    FROMLEFT  = models.FloatField(null=True)
+    FROMRIGHT = models.FloatField(null=True)
 
 
-class Rug(Specs):
-    Rug: CharField = models.CharField(max_length=10, null=True)
+class Angle(models.Model):
+    Decimal   = models.DecimalField(null=True)
+    Flt       = models.FloatField(null=True)
+
+# Parts
+
+class FIN(models.Model):
+    Unit      = models.IntegerField(null=True)
+    ORDER     = models.IntegerField(null=True)
+
+    FINSize  = models.OneToOneField(Size, on_delete=models.CASCADE)
+    Quantity = models.ManyToManyField('self')
+
+    @property
+    def FinList(self):
+        return list(self.Quantity.all())
 
 
-class Manifold:
-    # From Top, From Left, From Right, Radius
-    Radius  = models.FloatField()
-    # Position of Center of Holes
-    Top     = models.FloatField()
-    # Position of Each Holes
-    Left    = models.FloatField()
-    Right   = models.FloatField()
+class RUG(models.Model):
+    RUGPos  = models.OneToOneField(Position, on_delete=models.CASCADE)
+    RUGSize = models.OneToOneField(Size, on_delete=models.CASCADE)
 
 
-class Product(models.Model):
-    Number   : IntegerField = models.IntegerField(choices=ProductName.ProductNumber)
-    Prefix   : BooleanField = models.BooleanField(default=False)
-    Suffix   : CharField = models.CharField(choices=ProductName.Suffix)
-    NumberOfFins = models.IntegerField(null=True)
+class MANIFOLD(models.Model):
+    MANIFOLDSize = models.OneToOneField(Size, on_delete=models.CASCADE)
+
+    HolePos   = models.OneToOneField(Position, on_delete=models.CASCADE)
+    HoleRad   = models.FloatField()
+    HoleWidth = models.FloatField()
+    HoleThick = models.FloatField()
 
 
+class FINSHIELD(models.Model):
+    Number   = models.IntegerField(choices=Properties.ProductNumber)
+    Prefix   = models.BooleanField(default=False)
+    Suffix   = models.CharField(choices=Properties.Suffix)
 
+    FinFeature = models.OneToOneField(FIN, on_delete=models.CASCADE)
+    RugFeature = models.OneToOneField(RUG, on_delete=models.CASCADE)
+    Manifold   = models.OneToOneField(Size, on_delete=models.CASCADE)
 
+    Weight     = models.OneToOneField(Weight, on_delete=models.CASCADE)
