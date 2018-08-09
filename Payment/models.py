@@ -1,6 +1,6 @@
 
 from django.db import models
-from django.db.models import EmailField, CharField, DateField, BooleanField
+from django.db.models import EmailField, CharField, DateField, BooleanField, ForeignKey
 from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
 
@@ -22,17 +22,16 @@ class Order(models.Model):
     ## 6. Check another user, notice by e-mail or MMS
 
     SaveLocation = None
-    SenderEmail   : EmailField = models.EmailField()
-    OrderedCompany: CharField = models.CharField(max_length=50)
-    ThePaper      : CharField = models.FileField(upload_to=StorageLocation, storage=RequestStorage)
-    DeliveredDate : DateField = models.DateField(null=True, default=None)
-    LastQueryTime : DateField = models.DateField(null=True, default=None)
-    ConfirmedDate : DateField = models.DateField(null=True, default=None)
-    UploadDate    : DateField = models.DateField(null=True, default=None)
+    SenderEmail   : EmailField   = models.EmailField()
+    OrderedCompany: CharField    = models.CharField(max_length=50)
+    ThePaper      : CharField    = models.FileField(upload_to=StorageLocation, storage=RequestStorage)
+    DeliveredDate : DateField    = models.DateField(null=True, default=None)
+    LastQueryTime : DateField    = models.DateField(null=True, default=None)
+    ConfirmedDate : DateField    = models.DateField(null=True, default=None)
+    UploadDate    : DateField    = models.DateField(null=True, default=None)
+    DueDate       : DateField    = models.DateField(null=True)
     isStored      : BooleanField = models.BooleanField(default=False, null=False)
-    DueDate       : DateField = models.DateField(null=True)
-
-    Goods = models.ForeignKey('Product.Product', on_delete=models.CASCADE,)
+    Goods         : ForeignKey   = models.ForeignKey('Product.Product', on_delete=models.CASCADE,)
 
     def publish(self):
         self.LastQueryTime = timezone.now()
