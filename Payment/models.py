@@ -31,7 +31,7 @@ class Order(models.Model):
     UploadDate    : DateField    = models.DateField(null=True, default=None)
     DueDate       : DateField    = models.DateField(null=True)
     isStored      : BooleanField = models.BooleanField(default=False, null=False)
-    Goods         : ForeignKey   = models.ForeignKey('Product.Product', on_delete=models.CASCADE)
+#    Goods         : ForeignKey   = models.ForeignKey('Product.Product', on_delete=models.CASCADE)
 
     def publish(self):
         self.LastQueryTime = timezone.now()
