@@ -1,14 +1,14 @@
 from django.contrib import admin
-from Product import models
+from Product.models import *
 
 # Register your models here.
-admin.site.register(models.Length)
-admin.site.register(models.Angle)
-admin.site.register(models.Position)
-admin.site.register(models.Weight)
+admin.site.register(REC)
+admin.site.register(Angle)
+admin.site.register(Position)
+admin.site.register(Weight)
 
-admin.site.register(models.FIN)
-admin.site.register(models.RUG)
-admin.site.register(models.MANIFOLD)
+admin.site.register(FIN)
+admin.site.register(RUG)
+admin.site.register(MANIFOLD)
 
-admin.site.register(models.FINSHIELD)
+admin.site.register(FINSHIELD)
