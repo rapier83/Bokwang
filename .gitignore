@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+*.[oa]
+*~
+~*
+=======
+>>>>>>> On-Mac
 
 # Created by https://www.gitignore.io/api/django,pycharm+all
 
@@ -90,4 +97,8 @@ modules.xml
 *.ipr
 
 
+<<<<<<< HEAD
 # End of https://www.gitignore.io/api/django,pycharm+all
+=======
+# End of https://www.gitignore.io/api/django,pycharm+all
+>>>>>>> On-Mac
